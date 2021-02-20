@@ -6,4 +6,8 @@ Every directory holds the file *CreateDatabase.sql* containing the SQL code to c
 
 ## Bank_PHP_Text
 
-This application holds bank system 
+This application holds bank system, where it is possible to add, edit and remove customers, add accounts, and deposit and withdraw money. The application communicates with a MySQL database, where the SQL commands are written in plain text.
+
+## Bank_PHP_Placeholders
+
+This application communicates with a MySQL database by using placeholders instead of plain text.
