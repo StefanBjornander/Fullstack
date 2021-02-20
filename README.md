@@ -4,7 +4,9 @@ This repository holds a set of applications in PHP, SQL, Laravel, JavaScript, An
 
 This is a new paragraph.
 
-__bold__
+*italic*
+
+_italic_
 
 **bold**
 
