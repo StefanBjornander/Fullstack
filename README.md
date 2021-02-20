@@ -1,13 +1,9 @@
 # Fullstack
 
->This repository holds a set of applications in PHP, SQL, Laravel, JavaScript, AngularJS, Angular, and Node Express.
->
->This is a new paragraph.
+This repository holds a set of applications in PHP, SQL, Laravel, JavaScript, AngularJS, Angular, and Node Express.
 
-*italic*
+Every directory holds the file *CreateDatabase.sql* containing the SQL code to create the database of the application.
 
-_italic_
+## Bank_PHP_Text
 
-***bold italic***
-
-
+This application holds bank system 
