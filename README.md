@@ -32,7 +32,7 @@ In this application the views are written in Twig rather than PHP.
 
 ### Car_PHP_MVC_Twig
 
-This application holds a car dealership, where it is possible to rent cars.
+This application holds a car dealership, where it is possible to rent cars. The directory also holds a few PFD files with instructions for an assignment. Only in Swedish, I am afraid.
 
 ## Bank_Laravel_Blade
 
