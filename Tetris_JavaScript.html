@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tetris</title>
+
+  <style>
+    canvas {
+      position: relative;
+    }
+    
+    button {
+      width: 100%;
+    }    
+    
+    input {
+      width: 100%;
+      text-align: center;
+    }    
+    
+    label {
+      width: 100%;
+    }    
+  </style>
+</head>
+
+<body>
+  <table border="1px">
+    <tr>
+      <td colspan="2" align="center"><h1>Tetris</h1></td>
+    </tr>
+    <tr>
+      <td><button width="100%" id="gameButton">Game</button></td>
+    </tr>
+    <tr>
+      <td><input type="text" id="pointsInput" readonly></td>
+    </tr>
+    <tr>
+      <td colspan="2"><canvas id="canvas" width="320" height="480"></canvas></td>
+  </table>
+
+  <script>
+    let game = false;
+    let timer = null;
+
+    let canvas = document.getElementById("canvas");
+    let context = canvas.getContext("2d");
+
+    document.getElementById("gameButton").onclick =
+      function() {
+        if (game && !confirm("Do you want to interrupt the current game?")) {
+          return;
+        }
+
+        game = true;
+        timer = window.setInterval(onTimer, 1000);
+        board = [];
+
+        for (let x = 0; x < COLUMNS; ++x) {
+          let row = [];
+
+          for (let y = 0; y < ROWS; ++y) {
+            row.push("White");
+          }
+
+          board.push(row);
+        }
+
+        newFigure();
+        repaint();
+        document.getElementById("pointsInput").value = "0";
+        document.getElementById("gameButton").blur();
+      };
+
+    let cyanFigure = {color: "Cyan", data: [{x: -1, y: 0}, {x: 1, y: 0}, {x: 2, y: 0}]},
+        blueFigure = {color: "Blue", data: [{x: 0, y: -1}, {x: 1, y: 0}, {x: 2, y: 0}]},
+        orangeFigure = {color: "Orange", data: [{x: 0, y: -1}, {x: -1, y: 0}, {x: -2, y: 0}]},
+        yellowFigure = {color: "Yellow", data: [{x: 1, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}]},
+        greenFigure = {color: "Green", data: [{x: -1, y: 1}, {x: 0, y: 1}, {x: 1, y: 0}]},
+        violetFigure = {color: "Violet", data: [{x: -1, y: 0}, {x: 0, y: -1}, {x: 1, y: 0}]},
+        redFigure = {color: "Red", data: [{x: -1, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}]};
+    
+    let figureArray = [cyanFigure, blueFigure, orangeFigure, yellowFigure,
+                       greenFigure, violetFigure, redFigure];
+    let COLUMNS = 10, ROWS = 16;
+    let board = []; 
+    let xFigure = 0, yFigure = 0;
+    let figure = null;
+
+    function newFigure() {
+      figure = figureArray[Math.floor(figureArray.length * Math.random())];
+      xFigure = COLUMNS / 2;
+      yFigure = 1;
+      
+      if (!isWhite(xFigure, yFigure, figure)) {
+        game = false;
+        window.clearInterval(timer);
+        alert("Game Over! Score: " + document.getElementById("pointsInput").value);
+      }
+    }
+    
+    document.onkeydown =
+      function(event) {
+        if (game) {
+          let key = event.key.toString().replace("Arrow", "").replace(" ", "Spacebar");
+          
+          switch (key) {
+            case "Left":
+              onLeft();
+              break;
+
+            case "Right":
+              onRight();
+              break;
+
+            case "Up":
+              onAnticlockwise();
+              break;
+
+            case "Down":
+              onClockwise();
+              break;
+
+            case "Spacebar":
+              onSpace();
+              break;
+          }
+          
+          event.preventDefault();
+        }
+      };
+
+    function onLeft() {
+      --xFigure;
+
+      if (isFigureWhite(xFigure, yFigure, figure)) {
+        repaint();
+      }
+      else {
+        ++xFigure;
+      }
+    }
+ 
+    function onRight() {
+      ++xFigure;
+      
+      if (isFigureWhite(xFigure, yFigure, figure)) {
+        repaint();
+      }
+      else {
+        --xFigure;
+      }
+    }
+ 
+    function onAnticlockwise() {
+      anticlockwise(figure);
+      
+      if (isFigureWhite(xFigure, yFigure, figure)) {
+        repaint();
+      }
+      else {
+        clockwise(figure);
+      }
+    }
+ 
+    function onClockwise() {
+      clockwise(figure);
+      
+      if (isFigureWhite(xFigure, yFigure, figure)) {
+        repaint();
+      }
+      else {
+        anticlockwise(figure);
+      }
+    }
+ 
+    function clock4(data) {
+      return {x: data.y, y: -data.x};
+    }
+
+/*    function clock2(data) {
+      if (data.x == 0) {
+        return {x: -data.y, y: 0};
+      }
+      else if (data.y == 0) {
+        return {x: 0, y: data.x}; 
+      }
+      else {
+        return {x: data.y, y: data.x};
+      }
+    }*/
+
+    function clockwise(figure) {
+      switch (figure.color) {
+        case "Yellow":
+          break;
+
+        default:
+          figure.data[0] = clock4(figure.data[0]);
+          figure.data[1] = clock4(figure.data[1]);
+          figure.data[2] = clock4(figure.data[2]);
+          break;
+      }
+    }
+    
+    function anticlock4(data) {
+      return {x: -data.y, y: data.x};
+    }
+
+    function anticlockwise(figure) {
+      switch (figure.color) {          
+        case "Yellow":
+          break;
+        
+        default:
+          figure.data[0] = anticlock4(figure.data[0]);
+          figure.data[1] = anticlock4(figure.data[1]);
+          figure.data[2] = anticlock4(figure.data[2]);
+          break;
+      }
+    }
+    
+    function onSpace() {
+      while (onTimer()) {
+        // Empty.
+      }
+    }
+
+    function onTimer() {
+      if (game) {
+        ++yFigure;
+
+        if (isFigureWhite(xFigure, yFigure, figure)) {
+          repaint();
+          return true;
+        }
+        else {
+          --yFigure;
+          addFigure();
+          checkRows();
+          newFigure();
+          return false;
+        }
+      }
+    }
+
+    function isFigureWhite(x, y, figure) {
+      return isWhite(x, y) &&
+             isWhite(x + figure.data[0].x, y + figure.data[0].y) &&
+             isWhite(x + figure.data[1].x, y + figure.data[1].y) &&
+             isWhite(x + figure.data[2].x, y + figure.data[2].y);
+    }
+
+    function isWhite(x, y) {
+      return (x >= 0) && (x < COLUMNS) &&
+             (y >= 0) && (y < ROWS) &&
+             (board[x][y] == "White");
+    }
+    
+    function repaint() {
+      context.strokeStyle = "Blue";
+      //context.fillStyle = "White";
+      //context.fillRect(0, 0, canvas.width, canvas.height);
+      
+      let width = canvas.width / COLUMNS,
+          height = canvas.height / ROWS;
+  
+      for (let x = 0; x < COLUMNS; ++x) {
+        for (let y = 0; y < ROWS; ++y) {
+          drawSquare(x, y, width, height, board[x][y])
+        }
+      }
+
+      drawSquare(xFigure, yFigure, width, height, figure.color);
+      drawSquare(xFigure + figure.data[0].x, yFigure + figure.data[0].y, width, height, figure.color);
+      drawSquare(xFigure + figure.data[1].x, yFigure + figure.data[1].y, width, height, figure.color);
+      drawSquare(xFigure + figure.data[2].x, yFigure + figure.data[2].y, width, height, figure.color);
+    }
+
+    function drawSquare(x, y, width, height, color) {
+      context.fillStyle = color;
+      context.strokeStyle = (color == "White") ? "White" : "Black";
+      context.beginPath();
+      context.rect(x * width, y * height, width, height);
+      context.closePath();
+      context.stroke();
+      context.fill();
+    }
+
+    function addFigure() {
+      board[xFigure][yFigure] = figure.color;
+      board[xFigure + figure.data[0].x][yFigure + figure.data[0].y] = figure.color;
+      board[xFigure + figure.data[1].x][yFigure + figure.data[1].y] = figure.color;
+      board[xFigure + figure.data[2].x][yFigure + figure.data[2].y] = figure.color;      
+    }
+
+    function checkRows() {
+      for (let y = (ROWS - 1); y >= 0; --y) {        
+        while (isRowFullyColored(y)) {
+          removeRow(y);
+          let points = parseInt(document.getElementById("pointsInput").value);
+          document.getElementById("pointsInput").value = (points + 1).toString();
+          repaint();
+        }
+      }
+    }
+
+    function isRowFullyColored(yRow) {
+      for (let x = 0; x < COLUMNS; ++x) {
+        if (board[x][yRow] == "White") {
+          return false;
+        }
+      }
+      
+      return true;
+    }
+    
+    function removeRow(yRow) {
+      for (let x = 0; x < COLUMNS; ++x) {
+        for (let y = yRow; y > 0; --y) {
+          board[x][y] = board[x][y - 1];
+        }
+
+        board[x][0] = "White";
+      }
+    }
+  </script>
+</body>
+</html>

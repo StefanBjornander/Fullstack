@@ -1,0 +1,100 @@
+{
+  "add_customer": {
+    "controller": "Customer",
+    "method": "addCustomer"
+  },
+  "customer_added": {
+    "controller": "Customer",
+    "method": "customerAdded"
+  },
+  "edit_customer/:customerNumber/:customerName": {
+    "controller": "Customer",
+    "method": "editCustomer",
+    "params": {
+      "customerNumber": "number",
+      "customerName": "string"
+    }
+  },
+  "customer_edited/:customerNumber/:customerName": {
+    "controller": "Customer",
+    "method": "customerEdited",
+    "params": {
+      "customerNumber": "number",
+      "customerName": "string"
+    }
+  },
+  "remove_customer/:customerNumber/:customerName": {
+    "controller": "Customer",
+    "method": "removeCustomer",
+    "params": {
+      "customerNumber": "number",
+      "customerName": "string"
+    }
+  },
+  "add_account/:customerNumber/:customerName": {
+    "controller": "Customer",
+    "method": "addAccount",
+    "params": {
+      "customerNumber": "number",
+      "customerName": "string"
+    }
+  },
+  "deposit/:customerNumber/:customerName/:accountNumber": {
+    "controller": "Account",
+    "method": "deposit",
+    "params": {
+      "customerNumber": "number",
+      "customerName": "string",
+      "accountNumber": "number"
+    }
+  },
+  "deposit_done/:customerNumber/:customerName/:accountNumber": {
+    "controller": "Account",
+    "method": "depositDone",
+    "params": {
+      "customerNumber": "number",
+      "customerName": "string",
+      "accountNumber": "number"
+    }
+  },
+  "withdraw/:customerNumber/:customerName/:accountNumber": {
+    "controller": "Account",
+    "method": "withdraw",
+    "params": {
+      "customerNumber": "number",
+      "customerName": "string",
+      "accountNumber": "number"
+    }
+  },
+  "withdraw_done/:customerNumber/:customerName/:accountNumber": {
+    "controller": "Account",
+    "method": "withdrawDone",
+    "params": {
+      "customerNumber": "number",
+      "customerName": "string",
+      "accountNumber": "number"
+    }
+  },
+  "view_account/:customerNumber/:customerName/:accountNumber": {
+    "controller": "Account",
+    "method": "viewAccount",
+    "params": {
+      "customerNumber": "number",
+      "customerName": "string",
+      "accountNumber": "number"
+    }
+  },
+  "remove_account/:customerNumber/:customerName/:accountNumber": {
+    "controller": "Account",
+    "method": "removeAccount",
+    "params": {
+      "customerNumber": "number",
+      "customerName": "string",
+      "accountNumber": "number"
+    }
+  },
+  "": {
+    "controller": "MainMenu",
+    "method": "customerList"
+  }  
+}

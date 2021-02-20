@@ -1,0 +1,9 @@
+{% block customerRemoved %}
+  <h1>Customer Removed</h1>
+
+  <p>{{name}}, living at {{address}}, {{postal}}, with person number {{person}} and phone number {{phone}}, has been removed.</p>
+
+  <form method="post" action="/customerList">
+    <input type="submit" style="width:20mm" value="Ok" autofocus>
+  </form>
+{% endblock %}

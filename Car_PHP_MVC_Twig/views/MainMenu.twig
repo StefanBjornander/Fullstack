@@ -1,0 +1,37 @@
+{% block mainMenu %}
+  <table border="1">
+    <tr>
+      <td colspan="5" align="center">
+        <h1>Car Renter</h1>
+      </td>
+    </tr>
+    
+    <tr>
+      <td class="column" style="width:20%">
+        <form action="/customerList" method="post">
+          <input type="submit" style="width:100%" style="width:100%" value="Customers">
+        </form>  
+      </td>
+      <td class="column" style="width:20%">
+        <form action="/carList" method="post">
+          <input type="submit" style="width:100%" style="width:100%" value="Cars">
+        </form>  
+      </td>
+      <td class="column" style="width:20%">
+        <form action="/checkOut" method="post">
+          <input type="submit" style="width:100%" style="width:100%" value="Check Out Car">
+        </form>  
+      </td>
+      <td class="column" style="width:20%">
+        <form action="/checkIn" method="post">
+          <input type="submit" style="width:100%" style="width:100%" value="Check In Car">
+        </form>  
+      </td>
+      <td class="column" style="width:20%">
+        <form action="/history" method="post">
+          <input type="submit" style="width:100%" style="width:100%" value="History">
+        </form>  
+      </td>
+    </tr>
+  </table>
+{% endblock %}

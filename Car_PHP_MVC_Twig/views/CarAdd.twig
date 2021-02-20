@@ -1,0 +1,57 @@
+{% block carAdd %}
+  <table border="1">
+    <form method="post" action="/carAdded" onsubmit="return validateCar();">
+      <tr>
+        <td colspan="2" align="center"><h1>Add Car</h1></td>
+      <tr>
+      <tr>
+        <td class="column">Registration number:</td>
+        <td class="column"><input id="registration" type="text" name="registration"
+                                  autofocus="autofocus" value="{{registration}}"></td>
+      </tr>
+      <tr>
+        <td class="column">Make:</td>
+        <td class="column">
+          <select id="make" name="make" style="width:100%">
+            <option hidden disabled selected value>-- Select a Make --</option>
+            {% for m in makes %}
+              <option name="{{m}}">{{m}}</option>
+            {% endfor %}
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td class="column">Color:</td>
+        <td class="column">
+          <select id="color" name="color" style="width:100%">
+            <option hidden disabled selected value>-- Select a Color --</option>
+            {% for c in colors %}
+              <option name="{{c}}">{{c}}</option>
+            {% endfor %}
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td class="column">Year:</td>
+        <td class="column"><input id="year" type="text" name="year" value="{{year}}"></td>
+      </tr>
+      <tr>
+        <td class="column">Price:</td>
+        <td class="column"><input id="price" type="text" name="price" value="{{price}}"></td>
+      </tr>
+      <tr>
+        <td colspan="2"><input style="width:100%" type="submit" value="Add"></td>
+      </tr>
+    </form>
+
+    <tr>
+      <td colspan="2">
+        <form action="/carList" method="post">
+          <input type="submit" style="width:100%" value="Cars">
+        </form>  
+      </td>
+    </tr>
+  </table>
+    
+  <script src="ValidateCar.js"></script>
+{% endblock %}

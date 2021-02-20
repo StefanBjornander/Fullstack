@@ -1,0 +1,27 @@
+<script src="https://unpkg.com/vue"></script>
+
+<div id="app">
+  <p>{{seconds}} seconds have passed since you opened the page.</p>
+  <p v-if="isMorning">Good morning</p>
+  <p v-if="isAfternoon">Good afternoon</p>
+  <p v-if="isEvening">Good evening</p>
+</div>
+
+<script>
+  var hours = new Date().getHours();
+
+  new Vue({
+    el: "#app",
+    data: {
+      seconds: 0,
+      isMorning: hours < 12,
+      isAfternoon: hours >= 12 && hours < 19,
+      isEvening: hours >= 19
+    },
+    created() {
+      setInterval(() => {
+        ++this.seconds;
+      }, 1000);
+    }
+  });
+</script>

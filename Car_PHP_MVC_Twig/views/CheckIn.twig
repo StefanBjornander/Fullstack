@@ -1,0 +1,47 @@
+{% block carAdd %}
+  <table border="1">
+    <form method="post" action="/checkedIn">
+      <tr>
+        <td colspan="2" align="center"><h1>Check In</h1></td>
+      <tr>
+
+<!--      <tr>
+        <td class="column">Customer:</td>
+        <td class="column">
+          <select class="column" name="person" autofocus="autofocus">
+            {% for customer in customers %}
+              <option value="{{customer.person}}">{{customer.person}} {{customer.name}}</option>
+            {% endfor %}
+          </select>
+        </td>
+      </tr>-->
+
+      <tr>
+        <td class="column">Car:</td>
+        <td class="column">
+          <select style="width:100%" name="registration">
+            {% for bookedCar in bookedCars %}
+              <option value="{{bookedCar.registration}}">{{bookedCar.registration}} {{bookedCar.color}} {{bookedCar.make}}</option>
+            {% endfor %}
+          </select>            
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="column" colspan="2">
+          <input type="submit" style="width:100%" value="Check In">
+        </td>
+      </tr>
+    </form>
+
+    <tr>
+      <td colspan="7">
+        <form action="/" method="post">
+          <input type="submit" style="width:100%" value="Main Menu">
+       </form>  
+      </td>
+    </tr>
+  </table>
+          
+  <script src="ValidateCar.js"></script>
+{% endblock %}

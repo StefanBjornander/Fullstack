@@ -1,0 +1,108 @@
+{
+  "": {
+    "controller": "MainMenu",
+    "method": "mainMenu"
+  },
+  "customerList": {
+    "controller": "Customer",
+    "method": "customerList"
+  },
+  "customerAdd": {
+    "controller": "Customer",
+    "method": "customerAdd"
+  },
+  "customerAdded": {
+    "controller": "Customer",
+    "method": "customerAdded"
+  },
+  "customerEdit/:person/:name/:address/:postal/:phone": {
+    "controller": "Customer",
+    "method": "customerEdit",
+    "params": {
+      "person": "string",
+      "name": "string",
+      "address": "string",
+      "postal": "string",
+      "phone": "string"
+    }
+  },
+  "customerEdited/:person": {
+    "controller": "Customer",
+    "method": "customerEdited",
+    "params": {
+      "person": "string"
+    }
+  },
+  "customerRemoved/:person/:name/:address/:postal/:phone": {
+    "controller": "Customer",
+    "method": "customerRemoved",
+    "params": {
+      "person": "string",
+      "name": "string",
+      "address": "string",
+      "postal": "string",
+      "phone": "string"
+    }
+  },
+  "carList": {
+    "controller": "Car",
+    "method": "carList"
+  },
+  "carAdd": {
+    "controller": "Car",
+    "method": "carAdd"
+  },
+  "carAdded": {
+    "controller": "Car",
+    "method": "carAdded"
+  },
+  "carEdit/:registration/:make/:color/:year/:price": {
+    "controller": "Car",
+    "method": "carEdit",
+    "params": {
+      "registration": "string",
+      "make": "string",
+      "color": "string",
+      "year": "number",
+      "price": "number"
+    }
+  },
+  "carEdited/:registration": {
+    "controller": "Car",
+    "method": "carEdited",
+    "params": {
+      "registration": "string"
+    }
+  },
+  "carRemoved/:registration/:make/:color/:year/:price": {
+    "controller": "Car",
+    "method": "carRemoved",
+    "params": {
+      "registration": "string",
+      "make": "string",
+      "color": "string",
+      "year": "string",
+      "price": "string"
+    }
+  },
+  "history": {
+    "controller": "Event",
+    "method": "eventList"
+  },
+  "checkOut": {
+    "controller": "Event",
+    "method": "checkOut"
+  },
+  "checkedOut": {
+    "controller": "Event",
+    "method": "checkedOut"
+  },
+  "checkIn": {
+    "controller": "Event",
+    "method": "checkIn"
+  },
+  "checkedIn": {
+    "controller": "Event",
+    "method": "checkedIn"
+  }
+}

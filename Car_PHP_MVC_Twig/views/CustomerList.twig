@@ -1,0 +1,56 @@
+{% block customerList %}
+  <table border>
+    <tr>
+      <td align="center" colspan="7"><h1>Customers</h1></td>
+    </tr>
+    
+    <tr>
+      <th align="left" valign="bottom" style="width:10%">Person Number</th>
+      <th align="left" valign="bottom" style="width:10%">Name</th>
+      <th align="left" valign="bottom" style="width:10%">Address</th>
+      <th align="left" valign="bottom" style="width:10%">Postal Address</th>
+      <th align="left" valign="bottom" style="width:10%">Phone Number</th>
+      <th align="left" valign="bottom" style="width:10%"></th>
+      <th align="left" valign="bottom" style="width:10%"></th>
+    </tr>
+
+    {% for customer in customers %}
+      <tr>
+        <td>{{customer.person}}</td>
+        <td>{{customer.name}}</td>
+        <td>{{customer.address}}</td>
+        <td>{{customer.postal}}</td>
+        <td>{{customer.phone}}</td>
+
+        <td style="width:10%">
+          <form method="post" action="/customerEdit/{{customer.person}}/{{customer.name}}/{{customer.address}}/{{customer.postal}}/{{customer.phone}}">
+            <input type="submit" style="width:100%" value="Edit" {% if customer.rent %} disabled {% endif %}>
+          </form>
+        </td>
+
+        <td style="width:10%">
+          <form method="post" action="/customerRemoved/{{customer.person}}/{{customer.name}}/{{customer.address}}/{{customer.postal}}/{{customer.phone}}"
+                onsubmit="return confirm('Are you sure you want to remove {{customer.name}}?')">
+            <input type="submit" style="width:100%" value="Remove" {% if customer.rent %} disabled {% endif %}>
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+
+    <tr>
+      <td colspan="7">
+        <form action="/customerAdd" method="post">
+          <input type="submit" style="width:100%" value="Add Customer">
+       </form>  
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="7">
+        <form action="/" method="post">
+          <input type="submit" style="width:100%" value="Main Menu">
+       </form>  
+      </td>
+    </tr>
+  </table>
+{% endblock %}

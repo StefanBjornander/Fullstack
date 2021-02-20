@@ -1,0 +1,43 @@
+{% block customerAdd %}
+  <table border="1">
+    <tr>
+      <td colspan="2" align="center"><h1>Add Customer</h1></td>
+    </tr>
+
+    <form method="post" action="/customerAdded" onsubmit="return validateCustomer();">
+      <tr>
+        <td>Person number:</td>
+        <td><input id="person" type="text" name="person" value="1234567890" autofocus="autofocus"></td>
+      </tr>
+      <tr>
+        <td>Name:</td>
+        <td><input id="name" type="text" name="name"></td>
+      </tr>
+      <tr>
+        <td>Address:</td>
+        <td><input id="address" type="text" name="address"></td>
+      </tr>
+      <tr>
+        <td>Postal address:</td>
+        <td><input id="postal" type="text" name="postal"></td>
+      </tr>
+      <tr>
+        <td>Phone number:</td>
+        <td><input id="phone" type="text" name="phone"></td>
+      </tr>
+      <tr>
+        <td colspan="2"><input type="submit" style="width:100%" value="Add"></td>
+      </tr>
+    </form>
+
+    <tr>
+      <td colspan="2">
+        <form action="/customerList" method="post">
+          <input type="submit" style="width:100%" value="Customers">
+        </form>  
+      </td>
+    </tr>
+  </table>
+  
+  <script src="ValidateCustomer.js"></script>
+{% endblock %}

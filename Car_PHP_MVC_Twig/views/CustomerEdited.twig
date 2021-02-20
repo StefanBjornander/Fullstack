@@ -1,0 +1,9 @@
+{% block customerEdited %}
+  <h1>Customer Edited</h1>
+
+  <p>{{name}}, living at {{address}}, {{postal}}, with person number {{person}} and phone number {{phone}}, has been edited.</p>
+
+  <form method="post" action="/customerList">
+    <input type="submit" style="width:20mm" value="Ok" autofocus>
+  </form>
+{% endblock %}

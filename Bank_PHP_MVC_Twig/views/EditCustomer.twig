@@ -1,0 +1,9 @@
+{% block edit_customer %}
+  <h1>Edit Customer</h1>
+
+  <form method='post' action='/customer_edited/{{customerNumber}}/{{customerName}}'>
+    Name: <input type='text' name='customerName'
+           value={{customerName}} autofocus='autofocus'>
+    <input type='submit' value='Ok'>
+  </form>
+{% endblock %}

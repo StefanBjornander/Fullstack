@@ -1,0 +1,9 @@
+{
+  "db": {
+    "host": "127.0.0.1",
+    "database": "bank_mvc_twig",
+    "user": "root",
+    "password": ""
+  },
+  "log": "/var/log/bookstore.log"
+}

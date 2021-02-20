@@ -1,0 +1,40 @@
+{% block mainMenu %}
+  <table border>
+    <tr>
+      <td class="column" align="center" colspan="6"><h1>History</h1></td>
+    </tr>
+    
+    <tr>
+      <th align="left" style="width:15%">Registration Number</th>
+      <th align="left" style="width:15%">Person Number</th>
+      <th align="left" style="width:15%">Check Out Time</th>
+      <th align="left" style="width:15%">Check In Time</th>
+      <th align="left" style="width:15%">Days</th>
+      <th align="left" style="width:15%">Cost</th>
+    </tr>
+    
+    {% for event in events %}
+      <tr>
+        <td align="left">{{event.registration}}</td>
+        <td align="left">{{event.person}}</td>
+        <td align="left">{{event.checkOutTime}}</td>
+        <td align="left">{{event.checkInTime}}</td>
+        <td align="left">{{event.days}}</td>
+        <td align="left">{{event.cost}}</td>
+      </tr>
+    {% endfor %}
+
+    <tr>
+      <th class="column" colspan="5" align="left">Sum</th>
+      <th align="left">{{sum}}</th>
+    </tr>
+
+    <tr>
+      <td class="column" colspan="6">
+        <form action="/" method="post">
+          <input type="submit" style="width:100%" value="Main Menu">
+       </form>  
+      </td>
+    </tr>
+  </table>
+{% endblock %}

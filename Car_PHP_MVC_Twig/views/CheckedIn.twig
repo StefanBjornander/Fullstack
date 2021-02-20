@@ -1,0 +1,10 @@
+{% block checkedIn %}
+  <h1>Checked In</h1>
+
+  <p>{{customer.name}}, living at {{customer.address}}, {{customer.postal}}, with person number {{customer.person}} and phone number {{customer.phone}},
+     has checked in the {{car.color}} {{car.make}} from {{car.year}} with registration number {{car.registration}}.</p>
+
+  <form method="post" action="/">
+    <input type="submit" style="width:20mm" value="Ok" autofocus>
+  </form>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% block main_menu %}
+  <style>
+    .column {
+      width: 20mm;
+    }
+
+    .button {
+      width: 100%;
+    }
+  </style>
+
+  <table border>
+    <tr><td colspan='3'>
+    <form action='/add_customer' method='post'>
+      <input type='submit' class='button' value='Add Customer'>
+    </form>  
+    </td></tr>
+
+    {% for customer in customers %}
+      <tr>
+        <td><b>{{customer.customerNumber}}</b></td>
+            <td colspan = '2'><b>{{customer.customerName}}</b></td>
+
+        <td>
+          <form method='post' action='/edit_customer/{{customer.customerNumber}}/{{customer.customerName}}'>
+            <input type='submit' class='button' value='Edit'>
+          </form>
+        </td>
+
+        <td>
+          <form method='post' action='/remove_customer/{{customer.customerNumber}}/{{customer.customerName}}'
+                onsubmit='return confirm("Are you sure you want to remove customer {{customer.customerName}}?")'>
+            <input type='submit' class='button' value='Remove'>
+          </form>
+        </td>
+
+        <td colspan='2'>
+          <form method='post' action='/add_account/{{customer.customerNumber}}/{{customer.customerName}}'>
+            <input type='submit' class='button' value='Add Account'>
+          </form>
+        </td>
+      </tr>
+
+      {% for account in customer.accounts %}
+        <tr>
+          <td></td>
+          <td>{{account.accountNumber}}</td>
+          <td>{{account.accountBalance}}</td>
+
+          <td class="column">
+            <form method='post' action='/deposit/{{customer.customerNumber}}/{{customer.customerName}}/{{account.accountNumber}}'>
+              <input type='submit' class='button' value='Deposit'>
+            </form>
+          </td>
+
+          <td class="column">
+            <form method='post' action='/withdraw/{{customer.customerNumber}}/{{customer.customerName}}/{{account.accountNumber}}'>
+              <input type='submit' class='button' value='Withdraw'>
+            </form>
+          </td>
+
+          <td class="column">
+            <form method='post' action='/view_account/{{customer.customerNumber}}/{{customer.customerName}}/{{account.accountNumber}}'>
+              <input type='submit' class='button' value='View'>
+            </form>
+          </td>
+
+          <td class="column">
+            <form method='post' action='/remove_account/{{customer.customerNumber}}/{{customer.customerName}}/{{account.accountNumber}}'
+                onsubmit='return confirm("Are you sure you want to remove account {{account.accountNumber}}?")'>
+              <input type='submit' class='button' value='Remove'>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    {% endfor %}
+  </table>
+{% endblock %}

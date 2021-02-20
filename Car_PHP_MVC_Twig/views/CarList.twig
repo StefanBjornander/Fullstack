@@ -1,0 +1,67 @@
+{% block carList %}
+  <table border>
+    <tr>
+      <td style="width:10%" colspan="9" align="center">
+        <h1>Cars</h1>
+      </td>
+    </tr>
+
+    <tr>
+      <th align="left" style="width:10%">Registration</th>
+      <th align="left" style="width:10%">Make</th>
+      <th align="left" style="width:10%">Color</th>
+      <th align="left" style="width:10%">Year</th>
+      <th align="left" style="width:10%">Price</th>
+      <th align="left" style="width:10%">Checked out by</th>
+      <th align="left" style="width:10%">Checked out time</th>
+      <th align="left" style="width:10%"></th>
+      <th align="left" style="width:10%"></th>
+    </tr>
+    
+    {% for car in cars %}
+      <tr>
+        <td style="width:10%">{{car.registration}}</td>
+        <td style="width:10%">{{car.make}}</td>
+        <td style="width:10%">{{car.color}}</td>
+        <td style="width:10%">{{car.year}}</td>
+        <td style="width:10%">{{car.price}}</td>
+        
+        {% if car.person != null %}
+          <td style="width:10%">{{car.person}}</td>
+          <td style="width:10%">{{car.time}}</td>
+        {% else %}
+          <td style="width:10%" colspan="2">Free</td>
+        {% endif %}
+
+        <td style="width:10%">
+          <form method="post" action="/carEdit/{{car.registration}}/{{car.make}}/{{car.color}}/{{car.year}}/{{car.price}}">
+            <input type="submit" style="width:100%" value="Edit" {% if (car.person != null) %} disabled {% endif %}>
+          </form>
+        </td>
+
+        <td style="width:10%">
+          <form method="post" action="/carRemoved/{{car.registration}}/{{car.make}}/{{car.color}}/{{car.year}}/{{car.price}}"
+                onsubmit="return confirm('Are you sure you want to remove the {{car.make}}?')">
+            <input type="submit" style="width:100%" {% if (car.person != null) %} disabled {% endif %} value="Remove">
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+
+    <tr>
+      <td style="width:10%" colspan="9">
+        <form action="/carAdd" method="post">
+          <input type="submit" style="width:100%" style="width:10%" value="Add Car">
+        </form>  
+      </td>
+    </tr>
+
+    <tr>
+      <td style="width:10%" colspan="9">
+        <form action="/" method="post">
+          <input type="submit" style="width:100%" value="Main Menu">
+        </form>
+      </td>
+    </tr>    
+  </table>
+{% endblock %}

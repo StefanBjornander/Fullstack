@@ -1,0 +1,9 @@
+{% block carRemoved %}
+  <h1>Car Removed</h1>
+
+  <p>The {{color}} {{make}} from {{year}} with registration number {{registration}} has been removed.</p>
+
+  <form method="post" action="/carList">
+    <input type="submit" style="width:20mm" value="Ok" autofocus>
+  </form>
+{% endblock %}

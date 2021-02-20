@@ -1,0 +1,199 @@
+<div>
+  <h1>Bank</h1>
+
+  <div *ngIf="!state && message">{{message}}<hr></div>
+
+  <div [ngSwitch]="state">
+    <div *ngSwitchCase="'AddCustomer'">
+      <h2>Add Customer</h2>
+
+      <form (ngSubmit)="customerAdded(addForm)" #addForm="ngForm">
+        <input type="text" placeholder="New Customer Name"
+               name="newCustomerName" [(ngModel)]="newCustomerName">
+          <button type="submit">Add</button>
+      </form>
+      <hr>
+    </div>
+
+    <div *ngSwitchCase="'EditCustomer'">
+      <h2>Edit Customer</h2>
+
+      <form (ngSubmit)="customerEdited(editForm)" #editForm="ngForm">
+        <table>
+          <tr align="left">
+            <td align="left">Customer Number:</td>
+            <td align="left">{{customerNumber}}</td>
+            <!--<td align="left"><input type="text" readonly placeholder="Edit Customer Number"
+                 name="customerNumber" [(ngModel)]="customerNumber"></td>-->
+          </tr>
+          <tr align="left">
+            <td align="left">Customer Name:</td>
+            <td align="left"><input type="text" placeholder="Edit Customer Name"
+                 name="newCustomerName" [(ngModel)]="newCustomerName"></td>
+          </tr>
+          <tr align="left">
+            <td align="left"><button type="submit">Edit</button></td>
+          </tr>
+        </table>
+      </form>
+      <hr>
+    </div>
+
+    <div *ngSwitchCase="'Deposit'">
+      <h2>Deposit</h2>
+
+      <form (ngSubmit)="depositDone(editForm)" #editForm="ngForm">
+        <table>
+          <tr align="left">
+            <td align="left">Customer Number:</td>
+            <td align="left">{{customer.customer_number}}</td>
+            <!--<td align="left"><input type="text" readonly placeholder="Deposit Customer Number"
+                  name="customerNumber" [(ngModel)]="customer.customer_number"></td>-->
+          </tr>
+          <tr align="left">
+            <td align="left">Customer Name:</td>
+            <td align="left">{{customer.customer_name}}</td>
+            <!--<td align="left"><input type="text" readonly placeholder="Deposit Customer Name"
+                  name="customerName" [(ngModel)]="customer.customer_name"></td>-->
+          </tr>
+          <tr align="left">
+            <td align="left">Account Number:</td>
+            <td align="left">{{account.account_number}}</td>
+            <!--<td align="left"><input type="text" readonly placeholder="Deposit Account Number"
+                name="accountNumber" [(ngModel)]="account.account_number"></td>-->
+          </tr>
+          <tr align="left">
+            <td align="left">Amount:</td>
+            <td align="left"><input type="text" placeholder="Deposit Amount"
+                  name="amount" [(ngModel)]="amount"></td>
+          </tr>
+          <tr align="left">
+            <td align="left"><button type="submit">Deposit</button></td>
+          </tr>
+        </table>
+      </form>
+      <hr>
+    </div>
+
+    <div *ngSwitchCase="'Withdraw'">
+      <h2>Withdraw</h2>
+
+      <form (ngSubmit)="withdrawDone(editForm)" #editForm="ngForm">
+        <table>
+          <tr align="left">
+            <td align="left">Customer Number:</td>
+            <td align="left">{{customer.customer_number}}
+              <!--<input type="text" readonly placeholder="Deposit Customer Number"
+                name="customerNumber" [(ngModel)]="customer.customer_number">-->
+            </td>
+          </tr>
+          <tr align="left">
+            <td align="left">Customer Name:</td>
+            <td align="left">{{customer.customer_name}}
+              <!--<input type="text" readonly placeholder="Deposit Customer Name"
+                name="customerName" [(ngModel)]="customer.customer_name">-->
+            </td>
+          </tr>
+          <tr align="left">
+            <td align="left">Account Number:</td>
+            <td align="left">{{account.account_number}}
+              <!--<input type="text" readonly placeholder="Deposit Account Number"
+                name="accountNumber" [(ngModel)]="account.account_number">-->
+            </td>
+          </tr>
+          <tr align="left">
+            <td align="left">Amount:</td>
+            <td align="left">
+              <input type="text" placeholder="Withdraw Amount"
+                name="amount" [(ngModel)]="amount">
+            </td>
+          </tr>
+          <tr align="left">
+            <td align="left"><button type="submit">Withdraw</button></td>
+          </tr>
+        </table>
+      </form>
+      <hr>
+    </div>
+
+    <div *ngSwitchCase="'ViewHistory'">
+      <h2>View History</h2>
+      <table>
+        <tr align="left">
+          <td align="left">Customer Number:</td>
+          <td align="left">{{customer.customer_number}}
+            <!--<input type="text" readonly placeholder="Customer Number"
+                    name="CustomerNumber" [(ngModel)]="customer.customer_number">-->
+          </td>
+        </tr>
+        <tr align="left">
+          <td align="left">Customer Name:</td>
+          <td align="left">{{customer.customer_name}}
+            <!--<input type="text" readonly placeholder="Customer Name"
+                    name="CustomerName" [(ngModel)]="customer.customer_name">-->
+          </td>
+        </tr>
+        <tr align="left">
+          <td align="left">Account Number:</td>
+          <td align="left">{{account.account_number}}
+            <!--<input type="text" readonly placeholder="Deposit Account Number"
+                    name="AccountNumber" [(ngModel)]="account.account_number">-->
+          </td>
+        </tr>
+      </table>
+
+      <table *ngIf="history.length == 0">
+        <tr align="left">
+          <td colspan="2">The account has no history.</td>
+        </tr>
+      </table>
+
+      <div *ngIf="history.length > 0">
+        <p>
+        <table border>
+          <tr align="left">
+            <td align="left"><b>Time</b></td><td align="left"><b>Amount</b></td>
+          </tr>
+          <tr *ngFor="let event of history">
+            <td align="left">{{event.time | date:'short'}}</td><td align="left">{{event.amount}}</td>
+          </tr>
+          <tr align="left">
+            <td align="left"><b>Balance</b></td>
+            <td align="left"><b>{{account.balance}}</b></td>
+            <!--<td align="left"><input type="text" placeholder="Balance"
+                        name="balance" [(ngModel)]="account.balance"></td>-->
+          </tr>
+        </table>
+      </div>
+      <hr>
+    </div>
+  </div>
+
+  <div *ngIf="count > 0">Loading ...</div>
+
+  <div>
+    <table border>
+      <tr align="left"><td colspan='7'><button class="button" (click)="state = 'AddCustomer'">Add Customer</button></td></tr>
+
+      <ng-container *ngFor="let customer of customerArray">
+        <tr align="left">
+          <td align="left"><b>{{customer.customer_number}}</b></td>
+          <td colspan='2'><b>{{customer.customer_name}}</b></td>
+          <td class="column"><button class="button" (click)="editCustomer(customer)">Edit</button></td>
+          <td class="column"><button class="button" (click)="deleteCustomer(customer)">Delete</button></td>
+          <td colspan='2' class="column"><button class="button" (click)="addAccount(customer)">Add Account</button></td>
+        </tr>
+
+        <tr *ngFor="let account of accountArrayMap[customer.customer_number]">
+          <td align="left"></td>
+          <td align="left">{{account.account_number}}</td>
+          <td align="left">{{account.balance}} kr</td>
+          <td class="column"><button class="button" (click)="deposit(customer,account)">Deposit</button></td>
+          <td class="column"><button class="button" (click)="withdraw(customer,account)">Withdraw</button></td>
+          <td class="column"><button class="button" (click)="viewHistory(customer,account)">View</button></td>
+          <td class="column"><button class="button" (click)="deleteAccount(customer,account)">Delete</button></td>
+        </tr>
+      </ng-container>
+    </table>
+  </div>
+</div>

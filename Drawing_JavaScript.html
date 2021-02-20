@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Drawing</title>
+
+  <style>
+    canvas {
+      position: relative;
+    }
+    td {
+      width: 30mm;
+    }
+    button {
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Drawing</h1>
+
+  <table border='1px'>
+    <tr>
+      <td colspan='4'><div id="Header"></div></td>
+    </tr>
+    <tr>
+      <td><button id="MoveButton">Move</button></td>
+      <td><button id="LineButton">Line</button></td>
+      <td><button id="CircleButton">Circle</button></td>
+      <td><button id="RectangleButton">Rectangle</button></td>
+    </tr>
+    <tr>
+      <td><button id="RedButton" style="color:red">Red</button></td>
+      <td><button id="GreenButton" style="color:green">Green</button></td>
+      <td><button id="BlueButton" style="color:blue">Blue</button></td>
+      <td><button id="YellowButton" style="color:yellow">Yellow</button></td>
+    </tr>
+    <tr>
+      <td colspan='4'><canvas id='canvas' width='640' height='480'></canvas></td>
+  </table>
+
+  <script src="Line.js"></script>
+  <script src="Circle.js"></script>
+  <script src="Rectangle.js"></script>
+  
+  <script>
+    let state = 'Line'; // 'Move', 'Line', 'Circle', or 'Rectangle'
+
+    document.getElementById('MoveButton').onclick =
+      function(event) {
+        state = 'Move'
+        setHeader();
+      };
+
+    document.getElementById('LineButton').onclick =
+      function(event) {
+        state = 'Line'
+        setHeader();
+      };
+
+    document.getElementById('CircleButton').onclick =
+      function(event) {
+        state = 'Circle'
+        setHeader();
+      };
+
+    document.getElementById('RectangleButton').onclick =
+      function(event) {
+        state = 'Rectangle'
+        setHeader();
+      };
+
+    let color = 'Red'; // 'Red', 'Green', 'Blue', or 'Yellow'
+  
+    document.getElementById('RedButton').onclick =
+      function(event) {
+        color = 'Red';
+        setHeader();
+      };
+
+    document.getElementById('GreenButton').onclick =
+      function(event) {
+        color = 'Green';
+        setHeader();
+      };
+
+    document.getElementById('BlueButton').onclick =
+      function(event) {
+        color = 'Blue';
+        setHeader();
+      };
+
+    document.getElementById('YellowButton').onclick =
+      function(event) {
+        color = 'Yellow';
+        setHeader();
+      };
+
+    function setHeader() {
+      document.getElementById('Header').innerHTML = color + " " + state;
+    }
+    
+    setHeader();
+
+    let newFigure = null;
+    let moveFigure = null;
+    let figureArray = [];
+    let lastPoint = null;
+    
+    const canvas = document.getElementById('canvas');
+    const LEFT_BUTTON = 1;
+    
+    canvas.onmousedown =
+      function(event) {
+        if (event.buttons == LEFT_BUTTON) {
+          let x = event.offsetX, y = event.offsetY;
+          let point = new Point(x, y);
+
+          if (state == 'Move') {
+            figureArray.forEach(
+              function (figure) {
+                if (figure.Hit(point)) {
+                  moveFigure = figure;
+                  lastPoint = point;
+                }
+              }
+            );
+          }
+          else {
+            switch (state) {
+              case 'Circle':
+                newFigure = new Circle(color, point);
+                break;
+
+              case 'Rectangle':
+                newFigure = new Rectangle(color, point);
+                break;
+
+              case 'Line':
+                newFigure = new Line(color, point);
+                break;          
+            }
+
+            lastPoint = point;
+            figureArray.push(newFigure);
+          }
+        }
+      };
+
+    canvas.onmousemove =
+      function(event) {
+        let x = event.offsetX, y = event.offsetY;
+
+        if (event.buttons == LEFT_BUTTON) {
+          let point = new Point(x, y);
+
+          if (newFigure != null) {
+            newFigure.Create(point);
+            DrawCanvas();
+          }
+          else if (moveFigure != null) {
+            let distance = new Distance(x - lastPoint.x, y - lastPoint.y);
+            moveFigure.Move(distance);
+            DrawCanvas();
+            lastPoint = point;
+          }
+        }
+      };
+
+    canvas.onmouseup =
+      function(event) {
+        newFigure = null;
+        moveFigure = null;
+      };
+    
+    const context = canvas.getContext('2d');
+
+    function DrawCanvas() {
+      context.fillStyle = 'white';
+      context.fillRect(0, 0, canvas.width, canvas.height);
+
+      figureArray.forEach(
+        function (figure) {
+          figure.Draw(context);
+        }
+      );
+    }
+    
+    function Point(x, y) {
+      this.x = x;
+      this.y = y;
+    }
+    
+    function Distance(width, height) {
+      this.width = width;
+      this.height = height;
+    }
+
+    function Rect(topLeft, bottomRight) {
+      this.topLeft = topLeft;
+      this.bottomRight = bottomRight;
+    }
+    
+    function Line(color, point) {
+      this.color = color;
+      this.first = point;
+      this.last = point;
+    }
+
+    Line.prototype.Create =
+      function(point) {
+        this.last = point;
+      };
+
+    Line.prototype.Draw =
+      function(context) {
+        context.strokeStyle = this.color;
+        context.beginPath();
+        context.moveTo(this.first.x, this.first.y);
+        context.lineTo(this.last.x, this.last.y);
+        context.closePath();
+        context.stroke();
+      };
+
+    Line.prototype.Hit =
+      function(point) {
+        return hitLine(point, this.first, this.last);
+      };
+
+    Line.prototype.Area =
+      function() {
+        var minX = Math.min(this.first.x, this.last.x),
+            minY = Math.min(this.first.y, this.last.y),
+            maxX = Math.max(this.first.x, this.last.x),
+            maxY = Math.max(this.first.y, this.last.y);
+        return (new Rect(new Point(minX, minY), new Point(maxX, maxY)));
+      };
+
+    Line.prototype.Move =
+      function(distance) {
+        this.first.x += distance.width;
+        this.first.y += distance.height;
+        this.last.x += distance.width;
+        this.last.y += distance.height;
+      };
+
+    Line.prototype.Inside =
+      function(rect) {
+        var area = this.Area();
+        return (area.topLeft.x >= rect.topLeft.x) &&
+               (area.topLeft.y >= rect.topLeft.y) &&
+               (area.bottomRight.x <= rect.bottomRight.x) &&
+               (area.bottomRight.y <= rect.bottomRight.y);
+      };
+
+    function hitLine(point, first, last) {
+      var minY = Math.min(first.y, last.y),
+          maxY = Math.max(first.y, last.y);
+
+      if (first.x == last.x) {
+        return ((minY <= point.y) && (point.y <= maxY)) &&
+               (Math.abs(point.x - first.x) <= 5);
+      }
+      else {
+        var minPoint = (first.x < last.x) ? first : last,
+            maxPoint = (first.x > last.x) ? first : last;
+
+        if ((minPoint.x <= point.x) && (point.x <= maxPoint.x)) {
+          var smallX = point.x - minPoint.x, smallY = point.y - minPoint.y,
+              largeX = maxPoint.x - minPoint.x, largeY = maxPoint.y - minPoint.y;
+          return Math.abs(smallY - ((largeY * smallX) / largeX)) <= 5;
+        }
+
+        return false;
+      }
+    }
+
+    function Circle(color, point) {
+      this.color = color;
+      this.middlePoint = point;
+      this.radius = 0;
+    }
+
+    Circle.prototype.Create =
+      function(point) {
+        var deltaX = this.middlePoint.x - point.x,
+            deltaY = this.middlePoint.y - point.y;
+        this.radius = Math.sqrt((deltaX * deltaX) + (deltaY * deltaY));
+      };
+
+    Circle.prototype.Hit =
+      function(point) {
+        var deltaX = this.middlePoint.x - point.x,
+            deltaY = this.middlePoint.y - point.y;
+        var distance = Math.sqrt((deltaX * deltaX) + (deltaY * deltaY));
+        return Math.abs(this.radius - distance) <= 5;
+      };
+
+    Circle.prototype.Move =
+      function(distance) {
+        this.middlePoint.x += distance.width;
+        this.middlePoint.y += distance.height;
+      };
+
+    Circle.prototype.Draw =
+      function(context) {
+        context.strokeStyle = this.color;
+        context.beginPath();
+        context.arc(this.middlePoint.x, this.middlePoint.y, this.radius, 0, 2 * Math.PI);
+        context.closePath();
+        context.stroke();
+      };
+
+    Circle.prototype.Area =
+      function() {
+        var topLeft = new Point(this.middlePoint.x - this.radius,
+                                this.middlePoint.y - this.radius),
+            bottomRight = new Point(this.middlePoint.x + this.radius,
+                                    this.middlePoint.y + this.radius);
+        return (new Rect(topLeft, bottomRight));
+      };
+
+    Circle.prototype.Inside =
+      function(rect) {
+        var area = this.Area();
+        return (area.topLeft.x >= rect.topLeft.x) &&
+               (area.topLeft.y >= rect.topLeft.y) &&
+               (area.bottomRight.x <= rect.bottomRight.x) &&
+               (area.bottomRight.y <= rect.bottomRight.y);
+      };
+
+    function Rectangle(color, point) {
+      this.color = color;
+      this.topLeft = point;
+      this.bottomRight = point;
+    }
+
+    Rectangle.prototype.Create =
+      function(point) {
+        this.bottomRight = point;
+      };
+
+    Rectangle.prototype.Draw =
+      function(context) {
+        context.strokeStyle = this.color;
+        context.beginPath();
+        var width = this.bottomRight.x - this.topLeft.x,
+            height = this.bottomRight.y - this.topLeft.y;
+        context.rect(this.topLeft.x, this.topLeft.y, width, height);
+        context.closePath();
+        context.stroke();
+      };
+
+    Rectangle.prototype.Hit =
+      function(point) {
+        var topRight = new Point(this.bottomRight.x, this.topLeft.y),
+            bottomLeft = new Point(this.topLeft.x, this.bottomRight.y);
+
+        return hitLine(point, this.topLeft, topRight) ||
+               hitLine(point, topRight, this.bottomRight) ||
+               hitLine(point, this.bottomRight, bottomLeft) ||
+               hitLine(point, bottomLeft, this.topLeft);
+      };
+
+    Rectangle.prototype.Move =
+      function(distance) {
+        this.topLeft.x += distance.width;
+        this.topLeft.y += distance.height;
+        this.bottomRight.x += distance.width;
+        this.bottomRight.y += distance.height;      
+      };
+
+
+    Rectangle.prototype.Area =
+      function() {
+        var minX = Math.min(this.topLeft.x, this.bottomRight.x),
+            minY = Math.min(this.topLeft.y, this.bottomRight.y),
+            maxX = Math.max(this.topLeft.x, this.bottomRight.x),
+            maxY = Math.max(this.topLeft.y, this.bottomRight.y);
+        return (new Rect(new Point(minX, minY), new Point(maxX, maxY)));
+      };
+
+    Rectangle.prototype.Inside =
+      function(rect) {
+        var area = this.Area();
+        return (area.topLeft.x >= rect.topLeft.x) &&
+               (area.topLeft.y >= rect.topLeft.y) &&
+               (area.bottomRight.x <= rect.bottomRight.x) &&
+               (area.bottomRight.y <= rect.bottomRight.y);
+      };  
+  </script>
+</body>
+</html>
