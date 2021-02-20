@@ -8,6 +8,6 @@ This is a new paragraph.
 
 _italic_
 
-**bold**
+***bold italic***
 
 
