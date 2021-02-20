@@ -1,7 +1,7 @@
 {% block view_account %}
   <h1>View Account</h1>
 
-  {% if (accountEvents | length) > 0) %}
+  {% if ((accountEvents | length) > 0) %}
     <p>The history of account number {{accountNumber}},
        owned by {{customerName}} with number {{customerNumber}}.</p>
             
@@ -19,8 +19,8 @@
       </tr>
     </table>
   {% else %}
-    <p>Account number $accountNumber, owned by $customerName
-       with number $customerNumber, has no history.</p>
+    <p>Account number {{accountNumber}}, owned by {{customerName}}
+       with number {{customerNumber}}, has no history.</p>
   {% endif %}
   
   <p/>

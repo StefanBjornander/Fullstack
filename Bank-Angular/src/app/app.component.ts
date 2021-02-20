@@ -97,7 +97,7 @@ export class AppComponent implements OnInit {
 
   addAccount(customer) {
     var self = this;
-    this.http.post('http://localhost:3000/api/add_account/' + customer.customer_number).
+    this.http.get('http://localhost:3000/api/add_account/' + customer.customer_number).
     subscribe((result) => {
       self.message = "An account with number " + result['account_number'] + " has been added to customer " +
                      customer.customer_name + " with customer number " + customer.customer_number + ".";

@@ -36,5 +36,4 @@ $di->set('Logger', $log);
 echo "<!DOCTYPE html>";
 $router = new Router($di);
 $response = $router->route(new Request());
-echo "Hello<p>";
 echo $response;

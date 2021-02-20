@@ -187,7 +187,7 @@
         <tr *ngFor="let account of accountArrayMap[customer.customer_number]">
           <td align="left"></td>
           <td align="left">{{account.account_number}}</td>
-          <td align="left">{{account.balance}} kr</td>
+          <td align="left">{{account.account_balance}} kr</td>
           <td class="column"><button class="button" (click)="deposit(customer,account)">Deposit</button></td>
           <td class="column"><button class="button" (click)="withdraw(customer,account)">Withdraw</button></td>
           <td class="column"><button class="button" (click)="viewHistory(customer,account)">View</button></td>

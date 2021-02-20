@@ -3,7 +3,7 @@
     "host": "127.0.0.1",
     "database": "car_renter",
     "user": "root",
-    "password": "secret"
+    "password": ""
   },
   "log": "/var/log/bookstore.log"
 }

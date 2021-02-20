@@ -6,9 +6,7 @@ Every directory holds the file `CreateDatabase.sql` containing the SQL code to c
 
 ## Bank Applications in PHP
 
-The bank application holds a bank system, where it is possible to add, edit and remove customers, add accounts, and deposit and withdraw money. The application communicates with a MySQL database, where the SQL commands are written in plain text.
-
-The application comes in several variants.
+The bank application holds a bank system, that communicates with a SQL database, where we can add, edit and remove customers, add and remove their accounts, deposit and withdraw money, and view the accounts' history.
 
 ### Bank_PHP_Text
 
@@ -42,7 +40,7 @@ This bank application is written in Laravel and Blade.
 
 This application holds a bookshop, where it is possible to search for books, and order books.
 
-## Bank_AngularJS
+## Bank_AngularJS_NodeExpress
 
 The client of this bank application is written in Angular JS, and the server is written in Node Express. To execute this application you need to start the server with `node server.js`, and load the address `localhost:3000` to the web browser.
 

@@ -15,17 +15,20 @@ class Request {
     public function __construct() {
         $this->domain = $_SERVER['HTTP_HOST'];
         $pathArray = explode('?', $_SERVER['REQUEST_URI']);
-        $this->path = substr($pathArray[0], 1);
+
+        $this->path = str_replace("Bank_PHP_MVC_Twig/", "", substr($pathArray[0], 1));
+        //$this->path = substr($pathArray[0], 1);
+
         $this->method = $_SERVER['REQUEST_METHOD'];
         $this->params = new FilteredMap(array_merge($_POST, $_GET));
         $this->cookies = new FilteredMap($_COOKIE);
         
-        //echo "uri: " . $_SERVER['REQUEST_URI'] . "<br/>";
-        //echo "domain: $this->domain <br/>";
-        //echo "path: $this->path <br/>";
-        //echo "method: $this->method <br/>";
-        //echo "params: $this->params <br/>";
-        //echo "cookies: $this->cookies <p/>";
+        /*echo "uri: " . $_SERVER['REQUEST_URI'] . "<br/>";
+        echo "domain: $this->domain <br/>";
+        echo "path: $this->path <br/>";
+        echo "method: $this->method <br/>";
+        echo "params: $this->params <br/>";
+        echo "cookies: $this->cookies <p/>";*/
     }
 
     public function getUrl(): string {
