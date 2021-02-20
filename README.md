@@ -1,6 +1,6 @@
 # Fullstack Applications
 
-This repository holds a set of applications in PHP, SQL, Laravel, JavaScript, AngularJS, Angular, and Node Express.
+This repository holds a set of applications in PHP, SQL, Laravel, JavaScript, Angular, Node Express, React, and Vue.
 
 Every directory holds the file **CreateDatabase.sql** containing the SQL code to create the database of the application.
 
