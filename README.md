@@ -2,11 +2,7 @@
 
 This repository holds a set of applications in PHP, SQL, Laravel, JavaScript, Angular, Node Express, React, and Vue.
 
-Every directory holds the file 'CreateDatabase.sql' containing the SQL code to create the database of the application.
-
-´CreateDatabase.sql´
-
-`CreateDatabase.sql`
+Every directory holds the file `CreateDatabase.sql` containing the SQL code to create the database of the application.
 
 ## Bank Applications in PHP
 
@@ -48,7 +44,7 @@ This application holds a bookshop, where it is possible to search for books, and
 
 ## Bank_AngularJS
 
-The client of this bank application is written in Angular JS, and the server is written in Node Express. To execute this application you need to start the server with **node server.js**, and load the address **localhost:3000** to the web browser.
+The client of this bank application is written in Angular JS, and the server is written in Node Express. To execute this application you need to start the server with `node server.js`, and load the address `localhost:3000` to the web browser.
 
 ## Bank-Angular
 
