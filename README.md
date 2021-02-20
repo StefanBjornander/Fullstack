@@ -4,6 +4,10 @@ This repository holds a set of applications in PHP, SQL, Laravel, JavaScript, An
 
 Every directory holds the file 'CreateDatabase.sql' containing the SQL code to create the database of the application.
 
+´CreateDatabase.sql´
+
+`CreateDatabase.sql`
+
 ## Bank Applications in PHP
 
 The bank application holds a bank system, where it is possible to add, edit and remove customers, add accounts, and deposit and withdraw money. The application communicates with a MySQL database, where the SQL commands are written in plain text.
