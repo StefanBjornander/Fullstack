@@ -36,7 +36,7 @@ This application holds a car dealership, where it is possible to rent cars.
 
 ## Bank_Laravel_Blade
 
-This bank application is written in Laravel and Blade
+This bank application is written in Laravel and Blade.
 
 ## Bookshop_Laravel_Blade
 
