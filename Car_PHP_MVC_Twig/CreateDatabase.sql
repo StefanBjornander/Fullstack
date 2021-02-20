@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS CarRenter;
-CREATE DATABASE CarRenter;
-USE CarRenter;
+DROP DATABASE IF EXISTS car_renter;
+CREATE DATABASE car_renter;
+USE car_renter;
 
 CREATE TABLE Customer(person varchar(10), primary key (person),
                       name VARCHAR(256), address VARCHAR(256), postal varchar(256), phone varchar(10));
