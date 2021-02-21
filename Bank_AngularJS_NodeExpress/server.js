@@ -42,17 +42,11 @@ router.get('/customers',
 router.get('/accounts/:id',
   function(request, result) {
     var customer_number = request.params.id;
-
-    if (customer_number == 1) {
-      console.log("One");
-    }
-
     var sql_query = "SELECT * FROM account WHERE customer_number = ?";
 
     connection.query(sql_query, [customer_number],
       function (err, res, fields) {
         if (err) throw err;
-        console.log(res);
         result.send(res);
       }
     );
