@@ -44,7 +44,6 @@ export class AppComponent implements OnInit {
       self.message = this.newCustomerName + " with customer number " + result['customer_number'] + " has been added.";
       self.state = '';
       self.loadCustomerArray();
-      console.log("Added");
     });
   }
 
@@ -207,6 +206,7 @@ export class AppComponent implements OnInit {
             self.http.get('http://localhost:3000/api/balance/' + account_number).subscribe(balanceRecord => {
               var balance = balanceRecord['balance'];
               accountBalanceList.push({account_number: account_number, account_balance: balance});
+              console.log(account_number, accountBalanceList);
             });
           });
 
