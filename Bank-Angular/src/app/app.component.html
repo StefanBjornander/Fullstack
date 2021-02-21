@@ -1,5 +1,5 @@
 <div>
-  <h1>Bank</h1>
+  <h1>Bank Angular</h1>
 
   <div *ngIf="!state && message">{{message}}<hr></div>
 
@@ -22,7 +22,7 @@
         <table>
           <tr align="left">
             <td align="left">Customer Number:</td>
-            <td align="left">{{customerNumber}}</td>
+            <td align="left">{{customer_number}}</td>
             <!--<td align="left"><input type="text" readonly placeholder="Edit Customer Number"
                  name="customerNumber" [(ngModel)]="customerNumber"></td>-->
           </tr>
@@ -187,7 +187,7 @@
         <tr *ngFor="let account of accountArrayMap[customer.customer_number]">
           <td align="left"></td>
           <td align="left">{{account.account_number}}</td>
-          <td align="left">{{account.account_balance}} kr</td>
+          <td align="left">{{account.account_balance}}</td>
           <td class="column"><button class="button" (click)="deposit(customer,account)">Deposit</button></td>
           <td class="column"><button class="button" (click)="withdraw(customer,account)">Withdraw</button></td>
           <td class="column"><button class="button" (click)="viewHistory(customer,account)">View</button></td>

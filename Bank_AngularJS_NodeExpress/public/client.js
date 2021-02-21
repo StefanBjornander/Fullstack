@@ -5,8 +5,6 @@ angular.module('BankApp', [])
       
       self.loadCustomers =
         function() {
-          console.log("load customers");
-          
           $http.get('/api/customers').then(
             function(response) {
               self.customers = response.data;
@@ -85,7 +83,7 @@ angular.module('BankApp', [])
                         customer_number + ")?";
 
           if (confirm(message)) {
-            $http.delete('/api/delete_customer/' + customer_number).then(
+            $http.post('/api/delete_customer/' + customer_number).then(
               function(response) {
                 self.count = response.data.count;
                 self.customer_name = customer_name;
@@ -243,7 +241,7 @@ angular.module('BankApp', [])
                         " (customer number " + customer_number + ")?";
 
           if (confirm(message)) {
-            $http.delete('/api/delete_account/' + account_number).then(
+            $http.post('/api/delete_account/' + account_number).then(
               function(response) {
                 self.state = 'account_deleted';
                 self.customer_name = customer_name;

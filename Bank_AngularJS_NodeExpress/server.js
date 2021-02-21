@@ -33,7 +33,6 @@ router.get('/customers',
     connection.query(sql_query,
       function (err, res, fields) {
         if (err) throw err;
-        console.log(res);
         result.send(res);
       }
     );
@@ -42,7 +41,7 @@ router.get('/customers',
 
 router.get('/accounts/:id',
   function(request, result) {
-    var customer_number = request.params.id;//.substring(1);
+    var customer_number = request.params.id;
     var sql_query = "SELECT * FROM account WHERE customer_number = ?";
 
     connection.query(sql_query, [customer_number],
@@ -54,17 +53,29 @@ router.get('/accounts/:id',
   }
 );
 
+router.get('/balance/:id',
+  function(request, result) {
+    var account_number = request.params.id;
+    var sql_query = "SELECT SUM(amount) FROM history WHERE account_number = ?";
+
+    connection.query(sql_query, [account_number],
+      function (err, res, fields) {
+        if (err) throw err;
+        var balance = res[0]['SUM(amount)'];
+
+        if (balance == null) {
+          balance = 0;
+        }
+
+        result.send({balance: balance});
+      }
+    );
+  }
+);
+
 router.post('/add_customer/:id',
   function(request, result) {
     var customer_name = request.params.id;
-    
-    var connection = mysql.createConnection({
-      host: "localhost",
-      user: "root",
-      password: "",
-      database: "bank"
-    });
-
     var sql_query = "INSERT INTO customer (customer_name) VALUES(?)";
 
     connection.query(sql_query, [customer_name],
@@ -93,7 +104,7 @@ router.post('/edit_customer/:id1/:id2',
   }
 );
 
-router.delete('/delete_customer/:id',
+router.post('/delete_customer/:id',
   function(request, result) {
     var customer_number = request.params.id;
     var sql_query = "SELECT COUNT(*) FROM account WHERE customer_number = ?";
@@ -122,8 +133,6 @@ router.delete('/delete_customer/:id',
 router.post('/add_account/:id',
   function(request, result) {
     var customer_number = request.params.id;
-    console.log(customer_number);
-    
     var sql_query = "INSERT INTO account (customer_number) VALUES(?)";
 
     connection.query(sql_query, [customer_number],
@@ -138,7 +147,7 @@ router.post('/add_account/:id',
 
 router.get('/history/:id',
   function(request, result) {
-    var account_number = request.params.id;//.substring(1);
+    var account_number = request.params.id;
     var sql_query = "SELECT * FROM history WHERE account_number = ?";
 
     connection.query(sql_query, [account_number],
@@ -205,12 +214,12 @@ router.post('/withdraw/:id1/:id2',
   }
 );
 
-router.delete('/delete_account/:id',
+router.post('/delete_account/:id',
   function(request, result) {
     var account_number = request.params.id;
-    var sql_query = "SELECT SUM(amount) FROM history WHERE account_number = ?";
+    var sql_query = "SELECT SUM(amount) FROM history WHERE account_number = " + account_number;
 
-    connection.query(sql_query, [account_number],
+    connection.query(sql_query, [],
       function (err, res, fields) {
         if (err) throw err;            
         var balance = res[0]['SUM(amount)'];
@@ -246,9 +255,9 @@ router.delete('/delete_account/:id',
 
 // ------------------------
 
-router.get('/accounts/:id',
+/*router.get('/accounts/:id',
   function(request, result) {
-    var customer_number = request.params.id;//.substring(1);
+    var customer_number = request.params.id;
 
     result.send(
       accounts.filter(
@@ -282,7 +291,7 @@ router.post('/note/:id/done', function(request, result) {
 });
 
 router.get('/note/:id', function(request, result) {
-  var customer_number = request.params.id;//.substring(1);
+  var customer_number = request.params.id;
 
   result.send(
     accounts.filter(
@@ -310,7 +319,7 @@ router.post('/note/:id', function(request, result) {
 router.post('/login', function(request, result) {
   //console.log('API LOGIN FOR ', request.body);
   result.send({msg: 'Login successful for ' + request.body.username});
-});
+});*/
 
 app.use('/api', router);
 app.listen(3000);
