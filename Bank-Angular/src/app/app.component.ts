@@ -206,7 +206,6 @@ export class AppComponent implements OnInit {
             self.http.get('http://localhost:3000/api/balance/' + account_number).subscribe(balanceRecord => {
               var balance = balanceRecord['balance'];
               accountBalanceList.push({account_number: account_number, account_balance: balance});
-              console.log(account_number);
             });
           });
 
