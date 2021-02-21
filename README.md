@@ -30,7 +30,7 @@ In this application the views are written in Twig rather than PHP.
 
 ### Car_PHP_MVC_Twig
 
-This application holds a car dealership, where it is possible to rent cars. The directory also holds a few PFD files with instructions for an assignment. Only in Swedish, I am afraid.
+This application holds a car dealership, where we can manage customers, cars, and rental periods, with checks for phone and registration numbers. The directory also holds a few PFD files with instructions for an assignment. Only in Swedish, I am afraid.
 
 ## Bank_Laravel_Blade
 
@@ -48,18 +48,18 @@ The client of this bank application is written in Angular JS, and the server is 
 
 The client of this bank application is written in Angular, and uses the same server as the Angular JS application.
 
-## Drawing_JavaScript
+## Drawing_JavaScript.html
 
 This application holds a drawing program, written in JavaScript.
 
-## Tetris_JavaScript
+## Tetris_JavaScript.html
 
 This application holds the game Tetris, written in JavaScript.
 
-## TicTacToe_React
+## TicTacToe_React.html
 
 This application holds the game Tic-Tac-Toe, written in React.
 
-## TicTacToe_Vue
+## TicTacToe_Vue.html
 
 This application holds the game Tic-Tac-Toe, written in Vue.
