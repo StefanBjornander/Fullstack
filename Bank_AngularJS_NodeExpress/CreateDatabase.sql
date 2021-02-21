@@ -35,6 +35,7 @@ insert into account(customer_number) select customer_number from customer where 
 insert into account(customer_number) select customer_number from customer where customer_name = 'David Eriksson';
 insert into account(customer_number) select customer_number from customer where customer_name = 'Erik Filipsson';
 insert into account(customer_number) select customer_number from customer where customer_name = 'Filip Gustavsson';
+--delete from account where account_number = 1;
 
 delete from history;
 insert into history(account_number, amount) select account_number, 100 from account;

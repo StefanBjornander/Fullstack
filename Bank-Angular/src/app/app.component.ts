@@ -98,7 +98,7 @@ export class AppComponent implements OnInit {
   addAccount(customer) {
     var self = this;
     this.http.post('http://localhost:3000/api/add_account/' + customer.customer_number, "").subscribe((result) => {
-      self.message = "An account with number " + result['account_number'] + " has been added to customer " +
+      self.message = "An account with number " + result['number'] + " has been added to customer " +
                      customer.customer_name + " with customer number " + customer.customer_number + ".";
       self.state = '';
       self.loadCustomerArray();
@@ -206,6 +206,7 @@ export class AppComponent implements OnInit {
             self.http.get('http://localhost:3000/api/balance/' + account_number).subscribe(balanceRecord => {
               var balance = balanceRecord['balance'];
               accountBalanceList.push({account_number: account_number, account_balance: balance});
+              console.log(account_number);
             });
           });
 
